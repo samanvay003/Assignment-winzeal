@@ -69,18 +69,18 @@ resource "aws_lb_listener" "listener" {
   }
 }
 
-resource "aws_instance" "example" {
+resource "aws_instance" "test-server" {
   ami             = "ami-0c55b159cbfafe1f0"  
   instance_type   = "t2.micro"               
   subnet_id       = aws_subnet.public.id
   security_groups = [aws_security_group.alb_sg.name]
 
   tags = {
-    Name = "my-instance"
+    Name = "test-server"
   }
 }
 
 resource "aws_lb_target_attachment" "target_attachment" {
   target_group_arn = aws_lb_target_group.target_group.arn
-  target_id        = aws_instance.example.id
+  target_id        = aws_instance.test-server.id
 }
